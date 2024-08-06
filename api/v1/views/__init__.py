@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 """
-Create flask app blueprint, instance of Flask.
+Create Flask app blueprint, instance of Flask.
 """
 from flask import Blueprint
-from api.v1.views.index import *
-from api.v1.views.states import *
 
 app_views = Blueprint('app_views', __name__, url_prefix='/api/v1')
+
+# Import specific route modules, ensuring no circular imports
+from api.v1.views import index
+from api.v1.views import states
