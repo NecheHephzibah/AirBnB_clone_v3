@@ -3,7 +3,7 @@
 Creates a new view for State objs that handles all default API .
 """
 from flask import jsonify, abort, request
-from models.state import State
+from models.state import City
 from models import storage
 from api.v1.views import app_views
 
@@ -52,7 +52,7 @@ def create_state():
     state = State(**keys)
     state.save()
     return jsonify(state.to_dict()), 201
-    
+
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def update_state(state_id):
     """Update existing state object"""
