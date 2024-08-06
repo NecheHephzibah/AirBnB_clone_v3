@@ -9,15 +9,17 @@ from api.v1.views import app_views
 
 
 @app_views.route('/states', strict_slashes=False)
-def get_state():
-    """Gets all state objects"""
-    all_state = storage.all(State).values()
-    list_of_states = [state.to_dict() for s in all_state]
-    return jsonify(list_of_states)
+def get_all_states():
+    """
+    Gets all state objects
+    """
+    states = storage.all(State).values()
+    states_list = [state.to_dict() for state in states]
+    return jsonify(state_list)
 
 
 @app_views.route('/states/<state_id>', strict_slashes=False)
-def get_state_id(state_id):
+def get_state(state_id):
     """Gets all state objects id"""
     state = storage.get(State, state_id)
 
