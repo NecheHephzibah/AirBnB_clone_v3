@@ -6,28 +6,38 @@ from api.v1.views import app_views
 from models import storage
 
 
-@app_views.route('/status')
-def api_status():
+@app_views.route("/status", methods=['GET'], strict_slashes=False)
+def status():
     """
-    creates api for route status, it will return a json response.
+    status route
+    :return: response with json
     """
-
-    resp = {'status': "OK"}
-    return jsonify(resp)
-
-
-@app_views.route('/stats')
-def retrieve_stats():
-    """
-    creates api for route stats
-    """
-
-    stats = {
-         'amenities': storage.count('Amenity'),
-         'cities': storage.count('City'),
-         'places': storage.count('Place'),
-         'reviews': storage.count('Review'),
-         'states': storage.count('State'),
-         'users': storage.count('User'),
+    data = {
+        "status": "OK"
     }
-    return jsonify(stats)
+
+    resp = jsonify(data)
+    resp.status_code = 200
+
+    return resp
+
+
+@app_views.route("/stats", methods=['GET'], strict_slashes=False)
+def stats():
+    """
+    stats of all objs route
+    :return: json of all objs
+    """
+    data = {
+        "amenities": storage.count("Amenity"),
+        "cities": storage.count("City"),
+        "places": storage.count("Place"),
+        "reviews": storage.count("Review"),
+        "states": storage.count("State"),
+        "users": storage.count("User"),
+    }
+
+    resp = jsonify(data)
+    resp.status_code = 200
+
+    return resp
